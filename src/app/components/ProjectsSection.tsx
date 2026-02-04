@@ -100,7 +100,7 @@ export const ProjectsSection: React.FC = () => {
                 {creativeProjects.map((project, index) => (
                   <div
                     key={index}
-                    className="min-w-full relative h-[500px]"
+                    className="min-w-full relative h-[320px] sm:h-[420px] lg:h-[500px]"
                   >
                     <ImageWithFallback
                       src={project.image}
@@ -108,8 +108,8 @@ export const ProjectsSection: React.FC = () => {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-8">
-                      <h4 className="text-3xl font-['Montserrat_Alternates'] font-bold text-white">
+                    <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8">
+                      <h4 className="text-xl sm:text-2xl lg:text-3xl font-['Montserrat_Alternates'] font-bold text-white">
                         {project.title}
                       </h4>
                     </div>
@@ -119,14 +119,14 @@ export const ProjectsSection: React.FC = () => {
             </div>
 
             {/* Navigation */}
-            <div className="flex items-center justify-center gap-4 mt-6">
+            <div className="flex items-center justify-center gap-3 sm:gap-4 mt-4 sm:mt-6">
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={prevSlide}
-                className="p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl text-gray-700 dark:text-gray-300 hover:text-violet-500 transition-colors"
+                className="p-2 sm:p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl text-gray-700 dark:text-gray-300 hover:text-violet-500 transition-colors"
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
               </motion.button>
 
               {/* Pagination dots */}
@@ -135,9 +135,9 @@ export const ProjectsSection: React.FC = () => {
                   <button
                     key={index}
                     onClick={() => setCurrentSlide(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    className={`w-2.5 h-2.5 sm:w-2 sm:h-2 rounded-full transition-all duration-300 ${
                       index === currentSlide
-                        ? 'w-8 bg-violet-500'
+                        ? 'w-7 sm:w-8 bg-violet-500'
                         : 'bg-gray-300 dark:bg-gray-600'
                     }`}
                   />
@@ -148,9 +148,9 @@ export const ProjectsSection: React.FC = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={nextSlide}
-                className="p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl text-gray-700 dark:text-gray-300 hover:text-violet-500 transition-colors"
+                className="p-2 sm:p-3 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl text-gray-700 dark:text-gray-300 hover:text-violet-500 transition-colors"
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
               </motion.button>
             </div>
           </div>
