@@ -217,18 +217,19 @@ export function Header() {
                 ))}
               </div>
                 
-              {/* Footer Actions */}
+              {/* Footer Actions (raised so visible without scrolling) */}
               <motion.div 
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.4 }}
-                className="flex items-center justify-between mt-auto pt-8 border-t border-gray-100 dark:border-white/10 w-full max-w-sm mx-auto"
+                transition={{ delay: 0.45, duration: 0.36 }}
+                className="flex items-center justify-between mt-6 pt-6 border-t border-gray-100 dark:border-white/10 w-full"
               >
                 <div className="flex flex-col">
                   <span className="text-xs text-gray-400 font-poppins mb-1">{t('nav.theme')}</span>
                   <button
                     onClick={toggleTheme}
-                    className="flex items-center gap-2 text-sm font-semibold font-montserrat uppercase text-gray-800 dark:text-gray-200"
+                    aria-label="Toggle theme"
+                    className="flex items-center gap-2 text-sm font-semibold font-montserrat uppercase text-gray-900 dark:text-gray-100"
                   >
                     {theme === 'dark' ? (
                       <>
@@ -248,7 +249,8 @@ export function Header() {
                   <span className="text-xs text-gray-400 font-poppins mb-1">{t('nav.language')}</span>
                   <button
                     onClick={toggleLanguage}
-                    className="text-sm font-bold font-montserrat uppercase text-gray-800 dark:text-gray-200 flex items-center gap-2"
+                    aria-label="Toggle language"
+                    className="text-sm font-bold font-montserrat uppercase text-gray-900 dark:text-gray-100 flex items-center gap-2"
                   >
                     {language === 'fr' ? 'Français' : 'English'}
                     <span className="text-[#8B5CF6]">▼</span>
