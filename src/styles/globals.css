@@ -56,26 +56,56 @@
 }
 
 /* Projects slider spacing and smoothness */
-.projects-slider .slick-list {
-  margin: 0;
+.projects-slider {
+  position: relative;
+  overflow: hidden; /* prevent horizontal overflow */
 }
 
+.projects-slider .slick-list {
+  margin: 0;
+  padding: 0; /* ensure list doesn't add extra spacing */
+}
+
+/* default space between slides (mobile-first) */
 .projects-slider .slick-slide {
-  padding: 0 12px; /* space between slides */
+  padding: 0 8px; /* small gutter on mobile */
   box-sizing: border-box;
   transition: transform 0.45s cubic-bezier(.22,.9,.35,1);
 }
 
+/* ensure each slide content fills the slide and doesn't shrink */
 .projects-slider .slick-slide > div {
   display: flex;
   align-items: stretch;
   justify-content: center;
+  min-width: 100%; /* critical: one slide fills viewport */
+  flex-shrink: 0; /* avoid slides shrinking and causing multiple visible */
 }
 
 .projects-slider .slick-track {
   display: flex;
   align-items: stretch;
 }
+
+/* larger gutters on bigger screens */
+@media (min-width: 768px) {
+  .projects-slider .slick-slide { padding: 0 20px; }
+}
+@media (min-width: 1024px) {
+  .projects-slider .slick-slide { padding: 0 28px; }
+}
+
+/* ensure images inside slider behave well */
+.projects-slider img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* preserve proportions */
+}
+
+/* optional: subtle transform on active slide for depth */
+.projects-slider .slick-center > div { transform: translateY(-2px); }
+
 
 /* Dots subtle style */
 .projects-slider .slick-dots {
