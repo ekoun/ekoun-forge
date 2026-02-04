@@ -35,21 +35,27 @@ export function Projects() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
+    centerMode: true,
+    centerPadding: '32px',
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
+          centerPadding: '24px',
         }
       },
       {
         breakpoint: 640,
         settings: {
           slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: false,
+          centerPadding: '0px',
         }
       }
     ]
-  };
+  }; 
 
   return (
     <section id="projects" className="py-24 bg-gray-50 dark:bg-zinc-950 overflow-hidden">
@@ -74,7 +80,7 @@ export function Projects() {
           <div className="mx-[-10px]">
             <Slider {...sliderSettings}>
               {creativeImages.map((img, idx) => (
-                <div key={idx} className="px-3">
+                <div key={idx} className="px-4">
                   <a
                     href={img}
                     target="_blank"
