@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTheme } from 'next-themes';
 import { Menu, X, Sun, Moon, Briefcase, Layers, Image as ImageIcon, Mail } from 'lucide-react';
@@ -9,6 +10,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [isMounted, setIsMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
 
@@ -42,6 +44,10 @@ export function Header() {
     }
     return () => { document.body.style.overflow = 'unset'; };
   }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -142,13 +148,13 @@ export function Header() {
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
+        {isMounted && isMobileMenuOpen && createPortal(
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[90] md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl flex flex-col pt-24 pb-8 px-6 overflow-y-auto"
+            className="fixed inset-0 z-[999] md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl flex flex-col pt-24 pb-8 px-6 overflow-y-auto"
           >
             {/* Background Gradient Orbs */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#8B5CF6] rounded-full blur-[100px] opacity-10 pointer-events-none" />
@@ -216,7 +222,8 @@ export function Header() {
                 </button>
               </div>
             </motion.div>
-          </motion.div>
+          </motion.div>,
+          document.body
         )}
       </AnimatePresence>
     </header>
