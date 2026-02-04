@@ -128,7 +128,9 @@ export function Header() {
 
         {/* Mobile Menu Button - Hamburger / Close Animation */}
         <button
-          className="md:hidden p-2 text-gray-600 dark:text-gray-300 relative z-[120] hover:text-[#8B5CF6] transition-colors"
+          className={`md:hidden p-2 text-gray-600 dark:text-gray-300 hover:text-[#8B5CF6] transition-colors ${
+            isMobileMenuOpen ? 'fixed top-5 right-4 z-[1000]' : 'relative z-[120]'
+          }`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <motion.div
