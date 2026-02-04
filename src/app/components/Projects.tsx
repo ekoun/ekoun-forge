@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useLanguage } from '../hooks/useLanguage';
 import { Card } from './ui/card';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
 import marifil1 from '../../assets/marifil1.png';
 import marilfi2 from '../../assets/marilfi2.png';
 
@@ -24,8 +24,36 @@ const webImages = [
   "https://images.unsplash.com/photo-1717994818193-266ff93e3396?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800"
 ];
 
+// Custom arrows for react-slick
+function PrevArrow({ className, style, onClick }: any) {
+  return (
+    <button aria-label="Previous slide" onClick={onClick} className="projects-arrow projects-arrow-prev">
+      <ChevronLeft className="w-5 h-5 text-white" />
+    </button>
+  );
+}
+function NextArrow({ className, style, onClick }: any) {
+  return (
+    <button aria-label="Next slide" onClick={onClick} className="projects-arrow projects-arrow-next">
+      <ChevronRight className="w-5 h-5 text-white" />
+    </button>
+  );
+}
+
 export function Projects() {
   const { t } = useLanguage();
+  const sliderRef = useRef<any>(null);
+
+  // Keyboard navigation (left/right arrows)
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (!sliderRef.current) return;
+      if (e.key === 'ArrowLeft') sliderRef.current.slickPrev();
+      if (e.key === 'ArrowRight') sliderRef.current.slickNext();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
 
   const sliderSettings = {
     dots: true,
@@ -38,6 +66,14 @@ export function Projects() {
     adaptiveHeight: true,
     centerMode: false,
     centerPadding: '0px',
+    swipe: true,
+    swipeToSlide: true,
+    touchMove: true,
+    touchThreshold: 10,
+    pauseOnHover: true,
+    accessibility: true,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
     responsive: [
       {
         breakpoint: 1280,
@@ -84,7 +120,7 @@ export function Projects() {
             {t('projects.creative')}
           </h3>
           <div className="projects-slider mx-0">
-            <Slider {...sliderSettings}>
+            <Slider ref={sliderRef} {...sliderSettings}>
               {creativeImages.map((img, idx) => (
                 <div key={idx} className="px-4 sm:px-6 md:px-8">
                   <a
