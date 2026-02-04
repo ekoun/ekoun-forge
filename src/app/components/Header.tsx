@@ -60,7 +60,7 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-black/5 dark:border-white/10 ${
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b border-black/5 dark:border-white/10 ${
         isScrolled 
           ? 'bg-white/80 dark:bg-black/80 backdrop-blur-md py-3 shadow-sm' 
           : 'bg-transparent py-6'
@@ -68,7 +68,7 @@ export function Header() {
     >
       <div className="container mx-auto px-4 md:px-8 relative flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2 group relative z-50">
+        <a href="#" className="flex items-center gap-2 group relative z-[110]">
           <div className="relative w-8 h-8 md:w-10 md:h-10 overflow-hidden">
              <img 
                src={logoImg} 
@@ -106,7 +106,7 @@ export function Header() {
         </nav>
         
         {/* Right Actions */}
-        <div className="hidden md:flex items-center gap-6 relative z-20">
+        <div className="hidden md:flex items-center gap-6 relative z-[110]">
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
@@ -127,7 +127,7 @@ export function Header() {
 
         {/* Mobile Menu Button - Hamburger / Close Animation */}
         <button
-          className="md:hidden p-2 text-gray-600 dark:text-gray-300 relative z-50 hover:text-[#8B5CF6] transition-colors"
+          className="md:hidden p-2 text-gray-600 dark:text-gray-300 relative z-[120] hover:text-[#8B5CF6] transition-colors"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <motion.div
@@ -148,7 +148,7 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[60] md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl flex flex-col pt-24 pb-8 px-6 overflow-y-auto"
+            className="fixed inset-0 z-[90] md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl flex flex-col pt-24 pb-8 px-6 overflow-y-auto"
           >
             {/* Background Gradient Orbs */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#8B5CF6] rounded-full blur-[100px] opacity-10 pointer-events-none" />
