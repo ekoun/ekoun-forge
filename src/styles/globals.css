@@ -118,3 +118,18 @@
 .projects-slider .projects-arrow:focus { outline: none; box-shadow: 0 0 0 4px rgba(139,92,246,0.12); }
 .projects-slider .projects-arrow-prev { left: 8px; }
 .projects-slider .projects-arrow-next { right: 8px; }
+
+/* Close button inside mobile menu */
+.projects-close {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(139,92,246,0.95), rgba(139,92,246,0.8));
+  color: #fff;
+  border: none;
+  box-shadow: 0 8px 30px rgba(139,92,246,0.18);
+}
+.projects-close:focus { outline: none; box-shadow: 0 0 0 4px rgba(139,92,246,0.12); }

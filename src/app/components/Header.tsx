@@ -186,19 +186,25 @@ export function Header() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#8B5CF6] rounded-full blur-[100px] opacity-10 pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#8B5CF6] rounded-full blur-[100px] opacity-5 pointer-events-none" />
 
-              <div className="flex flex-col items-start justify-center flex-1 gap-6 w-full max-w-sm mx-auto">
-                <h2 className="text-xl font-bold font-montserrat mb-4 text-black dark:text-white">
-                  {t('nav.menu')}
-                </h2>
+              <div className="flex flex-col items-start justify-center flex-1 gap-6 w-full max-w-sm mx-auto relative">
+                {/* Visible close button inside overlay */}
+                <button
+                  aria-label="Fermer le menu"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="absolute top-4 right-4 p-2 rounded-full bg-white dark:bg-gray-900 shadow-sm z-50 projects-close"
+                >
+                  <X size={20} />
+                </button>
+
                 {navLinks.map((link, idx) => (
                   <motion.a
                     key={link.name}
                     href={link.href}
                     ref={idx === 0 ? firstLinkRef : undefined}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 + idx * 0.1, duration: 0.4, ease: "easeOut" }}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.06 + idx * 0.06, duration: 0.36, ease: "easeOut" }}
                     className="group flex items-center gap-4 w-full p-4 rounded-xl transition-all duration-300 hover:bg-[#8B5CF6]/5"
                   >
                     <div className="p-3 rounded-lg bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 group-hover:bg-[#8B5CF6] group-hover:text-white transition-all duration-300 shadow-sm">
