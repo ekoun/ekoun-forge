@@ -60,7 +60,7 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 border-b border-black/5 dark:border-white/10 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-black/5 dark:border-white/10 ${
         isScrolled 
           ? 'bg-white/80 dark:bg-black/80 backdrop-blur-md py-3 shadow-sm' 
           : 'bg-transparent py-6'
@@ -148,7 +148,7 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl flex flex-col pt-24 pb-8 px-6 overflow-y-auto"
+            className="fixed inset-0 z-[60] md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl flex flex-col pt-24 pb-8 px-6 overflow-y-auto"
           >
             {/* Background Gradient Orbs */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#8B5CF6] rounded-full blur-[100px] opacity-10 pointer-events-none" />
