@@ -122,7 +122,7 @@ export const ProjectsSection: React.FC = () => {
                 {creativeProjects.map((project, index) => (
                   <div
                     key={index}
-                    className="w-full flex-shrink-0 relative aspect-square sm:aspect-[4/3] lg:aspect-[16/9]"
+                    className="w-full flex-shrink-0 relative aspect-square sm:aspect-[4/3] lg:aspect-[16/9] p-3 sm:p-0"
                   >
                     <ImageWithFallback
                       src={project.image}
