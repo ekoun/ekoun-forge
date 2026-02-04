@@ -111,9 +111,9 @@ export const ProjectsSection: React.FC = () => {
 
           <div className="relative">
             {/* Slider */}
-            <div className="overflow-hidden rounded-2xl">
+            <div className="overflow-hidden rounded-2xl mx-auto w-full max-w-[420px] sm:max-w-none">
               <motion.div
-                className="flex touch-pan-x"
+                className="flex w-full touch-pan-x"
                 animate={{ x: `-${currentSlide * 100}%` }}
                 transition={{ duration: 0.5, ease: 'easeInOut' }}
                 onTouchStart={onTouchStart}
@@ -122,7 +122,7 @@ export const ProjectsSection: React.FC = () => {
                 {creativeProjects.map((project, index) => (
                   <div
                     key={index}
-                    className="w-full flex-shrink-0 relative h-[320px] sm:h-[420px] lg:h-[500px]"
+                    className="w-full flex-shrink-0 relative aspect-square sm:aspect-[4/3] lg:aspect-[16/9]"
                   >
                     <ImageWithFallback
                       src={project.image}
