@@ -62,7 +62,10 @@ export function Projects() {
     cssEase: 'cubic-bezier(.22,.9,.35,1)',
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
+    autoplaySpeed: 3500,
+    pauseOnHover: true,
+    pauseOnFocus: true,
     adaptiveHeight: true,
     centerMode: false,
     centerPadding: '0px',
@@ -70,7 +73,6 @@ export function Projects() {
     swipeToSlide: true,
     touchMove: true,
     touchThreshold: 10,
-    pauseOnHover: true,
     accessibility: true,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
@@ -128,7 +130,7 @@ export function Projects() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t('projects.view')}
-                    className="relative w-full group overflow-hidden rounded-xl block h-[72vw] sm:h-[60vw] md:h-[400px]"
+                    className="relative w-full max-w-[720px] mx-auto group overflow-hidden rounded-xl block aspect-square"
                   >
                     <img src={img} alt={`Project ${idx}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
