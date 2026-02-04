@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useApp } from '@/app/context/AppContext';
@@ -7,6 +7,7 @@ import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
 export const ProjectsSection: React.FC = () => {
   const { t } = useApp();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const touchStartX = useRef<number | null>(null);
 
   const creativeProjects = [
     {
@@ -58,6 +59,25 @@ export const ProjectsSection: React.FC = () => {
     setCurrentSlide((prev) => (prev - 1 + creativeProjects.length) % creativeProjects.length);
   };
 
+  const onTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    touchStartX.current = event.touches[0]?.clientX ?? null;
+  };
+
+  const onTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartX.current === null) return;
+    const endX = event.changedTouches[0]?.clientX ?? touchStartX.current;
+    const deltaX = endX - touchStartX.current;
+    const swipeThreshold = 50;
+
+    if (deltaX <= -swipeThreshold) {
+      nextSlide();
+    } else if (deltaX >= swipeThreshold) {
+      prevSlide();
+    }
+
+    touchStartX.current = null;
+  };
+
   return (
     <section
       id="projects"
@@ -93,14 +113,16 @@ export const ProjectsSection: React.FC = () => {
             {/* Slider */}
             <div className="overflow-hidden rounded-2xl">
               <motion.div
-                className="flex"
+                className="flex touch-pan-x"
                 animate={{ x: `-${currentSlide * 100}%` }}
                 transition={{ duration: 0.5, ease: 'easeInOut' }}
+                onTouchStart={onTouchStart}
+                onTouchEnd={onTouchEnd}
               >
                 {creativeProjects.map((project, index) => (
                   <div
                     key={index}
-                    className="min-w-full relative h-[320px] sm:h-[420px] lg:h-[500px]"
+                    className="w-full flex-shrink-0 relative h-[320px] sm:h-[420px] lg:h-[500px]"
                   >
                     <ImageWithFallback
                       src={project.image}
