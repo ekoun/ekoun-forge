@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTheme } from 'next-themes';
 import { Menu, X, Sun, Moon, Briefcase, Layers, Image as ImageIcon, Mail } from 'lucide-react';
@@ -33,14 +33,36 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
+  // Lock body scroll when mobile menu is open + focus management + close on Escape/hashchange
+  const firstLinkRef = useRef<HTMLAnchorElement | null>(null);
+
   useEffect(() => {
+    // Lock body scroll
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : 'unset';
+
+    // When opened, move focus to first link for accessibility
     if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+      setTimeout(() => {
+        firstLinkRef.current?.focus?.();
+      }, 80);
     }
-    return () => { document.body.style.overflow = 'unset'; };
+
+    // Close on Escape key
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMobileMenuOpen(false);
+    };
+
+    // Close on hash change/navigation to keep menu consistent
+    const onHash = () => setIsMobileMenuOpen(false);
+
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('hashchange', onHash);
+
+    return () => {
+      document.body.style.overflow = 'unset';
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('hashchange', onHash);
+    };
   }, [isMobileMenuOpen]);
 
 
@@ -128,7 +150,9 @@ export function Header() {
 
         {/* Mobile Menu Button - Hamburger / Close Animation */}
         <button
-          className={`md:hidden fixed top-5 right-4 z-[10001] p-2 text-gray-600 dark:text-gray-300 hover:text-[#8B5CF6] transition-colors`}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-menu"
+          className={`md:hidden fixed top-5 right-4 z-[100001] p-2 text-gray-600 dark:text-gray-300 hover:text-[#8B5CF6] transition-colors`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <motion.div
@@ -145,11 +169,15 @@ export function Header() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            id="mobile-menu"
+            onClick={(e) => { if (e.target === e.currentTarget) setIsMobileMenuOpen(false); }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[10000] md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl flex flex-col pt-24 pb-8 px-6 overflow-y-auto pointer-events-auto"
+            className="fixed inset-0 z-[100000] md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl flex flex-col pt-24 pb-8 px-6 overflow-y-auto pointer-events-auto"
           >
             {/* Background Gradient Orbs */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#8B5CF6] rounded-full blur-[100px] opacity-10 pointer-events-none" />
@@ -163,6 +191,7 @@ export function Header() {
                 <motion.a
                   key={link.name}
                   href={link.href}
+                  ref={idx === 0 ? firstLinkRef : undefined}
                   onClick={() => setIsMobileMenuOpen(false)}
                   initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
