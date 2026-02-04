@@ -128,9 +128,7 @@ export function Header() {
 
         {/* Mobile Menu Button - Hamburger / Close Animation */}
         <button
-          className={`md:hidden p-2 text-gray-600 dark:text-gray-300 hover:text-[#8B5CF6] transition-colors ${
-            isMobileMenuOpen ? 'fixed top-5 right-4 z-[1000]' : 'relative z-[120]'
-          }`}
+          className={`md:hidden fixed top-5 right-4 z-[10001] p-2 text-gray-600 dark:text-gray-300 hover:text-[#8B5CF6] transition-colors`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           <motion.div
@@ -151,7 +149,7 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[999] md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl flex flex-col pt-24 pb-8 px-6 overflow-y-auto pointer-events-auto"
+            className="fixed inset-0 z-[10000] md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl flex flex-col pt-24 pb-8 px-6 overflow-y-auto pointer-events-auto"
           >
             {/* Background Gradient Orbs */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#8B5CF6] rounded-full blur-[100px] opacity-10 pointer-events-none" />
