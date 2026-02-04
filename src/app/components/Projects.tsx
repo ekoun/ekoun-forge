@@ -30,19 +30,20 @@ export function Projects() {
   const sliderSettings = {
     dots: true,
     infinite: true,
-    speed: 500,
-    slidesToShow: 3,
+    speed: 600,
+    cssEase: 'cubic-bezier(.22,.9,.35,1)',
+    slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    centerMode: true,
-    centerPadding: '32px',
+    autoplay: false,
+    adaptiveHeight: true,
+    centerMode: false,
+    centerPadding: '0px',
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1280,
         settings: {
-          slidesToShow: 2,
-          centerPadding: '24px',
+          slidesToShow: 1,
+          slidesToScroll: 1,
         }
       },
       {
@@ -50,8 +51,6 @@ export function Projects() {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: false,
-          centerPadding: '0px',
         }
       },
       {
@@ -59,12 +58,10 @@ export function Projects() {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: false,
-          centerPadding: '0px',
         }
       }
     ]
-  }; 
+  };  
 
   return (
     <section id="projects" className="py-24 bg-gray-50 dark:bg-zinc-950 overflow-hidden">
@@ -86,16 +83,16 @@ export function Projects() {
           <h3 className="font-montserrat font-medium text-2xl mb-8 pl-4 border-l-4 border-[#8B5CF6] text-black dark:text-white">
             {t('projects.creative')}
           </h3>
-          <div className="mx-0">
+          <div className="projects-slider mx-0">
             <Slider {...sliderSettings}>
               {creativeImages.map((img, idx) => (
-                <div key={idx} className="px-1 sm:px-4">
+                <div key={idx} className="px-4 sm:px-6 md:px-8">
                   <a
                     href={img}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={t('projects.view')}
-                    className="relative w-full group overflow-hidden rounded-xl aspect-square md:h-[400px] md:aspect-auto block"
+                    className="relative w-full group overflow-hidden rounded-xl block h-[72vw] sm:h-[60vw] md:h-[400px]"
                   >
                     <img src={img} alt={`Project ${idx}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
