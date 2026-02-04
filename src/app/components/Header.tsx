@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTheme } from 'next-themes';
 import { Menu, X, Sun, Moon, Briefcase, Layers, Image as ImageIcon, Mail } from 'lucide-react';
@@ -166,89 +167,92 @@ export function Header() {
       </div>
 
       {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            id="mobile-menu"
-            onClick={(e) => { if (e.target === e.currentTarget) setIsMobileMenuOpen(false); }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[100000] md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl flex flex-col pt-24 pb-8 px-6 overflow-y-auto pointer-events-auto"
-          >
-            {/* Background Gradient Orbs */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#8B5CF6] rounded-full blur-[100px] opacity-10 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#8B5CF6] rounded-full blur-[100px] opacity-5 pointer-events-none" />
-
-            <div className="flex flex-col items-start justify-center flex-1 gap-6 w-full max-w-sm mx-auto">
-              <h2 className="text-xl font-bold font-montserrat mb-4 text-black dark:text-white">
-                {t('nav.menu')}
-              </h2>
-              {navLinks.map((link, idx) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  ref={idx === 0 ? firstLinkRef : undefined}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 + idx * 0.1, duration: 0.4, ease: "easeOut" }}
-                  className="group flex items-center gap-4 w-full p-4 rounded-xl transition-all duration-300 hover:bg-[#8B5CF6]/5"
-                >
-                  <div className="p-3 rounded-lg bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 group-hover:bg-[#8B5CF6] group-hover:text-white transition-all duration-300 shadow-sm">
-                    <link.icon size={24} strokeWidth={1.5} />
-                  </div>
-                  <span className="font-montserrat text-2xl font-bold uppercase tracking-wider text-gray-900 dark:text-white group-hover:text-[#8B5CF6] transition-colors">
-                    {link.name}
-                  </span>
-                </motion.a>
-              ))}
-            </div>
-              
-            {/* Footer Actions */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.4 }}
-              className="flex items-center justify-between mt-auto pt-8 border-t border-gray-100 dark:border-white/10 w-full max-w-sm mx-auto"
+      {/* Render mobile menu in a portal to guarantee it is independent of parent containers and always fullscreen */}
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              role="dialog"
+              aria-modal="true"
+              id="mobile-menu"
+              onClick={(e) => { if (e.target === e.currentTarget) setIsMobileMenuOpen(false); }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed top-0 left-0 w-screen h-screen z-[99999] md:hidden bg-white/95 dark:bg-black/95 backdrop-blur-xl flex flex-col pt-24 pb-8 px-6 overflow-y-auto touch-pan-y"
             >
-              <div className="flex flex-col">
-                <span className="text-xs text-gray-400 font-poppins mb-1">{t('nav.theme')}</span>
-                <button
-                  onClick={toggleTheme}
-                  className="flex items-center gap-2 text-sm font-semibold font-montserrat uppercase text-gray-800 dark:text-gray-200"
-                >
-                  {theme === 'dark' ? (
-                    <>
-                       <Sun size={18} className="text-[#8B5CF6]" /> {t('nav.mode.light')}
-                    </>
-                  ) : (
-                    <>
-                       <Moon size={18} className="text-[#8B5CF6]" /> {t('nav.mode.dark')}
-                    </>
-                  )}
-                </button>
-              </div>
+              {/* Background Gradient Orbs */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#8B5CF6] rounded-full blur-[100px] opacity-10 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#8B5CF6] rounded-full blur-[100px] opacity-5 pointer-events-none" />
 
-              <div className="h-8 w-[1px] bg-gray-200 dark:bg-white/10" />
-
-              <div className="flex flex-col items-end">
-                <span className="text-xs text-gray-400 font-poppins mb-1">{t('nav.language')}</span>
-                <button
-                  onClick={toggleLanguage}
-                  className="text-sm font-bold font-montserrat uppercase text-gray-800 dark:text-gray-200 flex items-center gap-2"
-                >
-                  {language === 'fr' ? 'Français' : 'English'}
-                  <span className="text-[#8B5CF6]">▼</span>
-                </button>
+              <div className="flex flex-col items-start justify-center flex-1 gap-6 w-full max-w-sm mx-auto">
+                <h2 className="text-xl font-bold font-montserrat mb-4 text-black dark:text-white">
+                  {t('nav.menu')}
+                </h2>
+                {navLinks.map((link, idx) => (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    ref={idx === 0 ? firstLinkRef : undefined}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + idx * 0.1, duration: 0.4, ease: "easeOut" }}
+                    className="group flex items-center gap-4 w-full p-4 rounded-xl transition-all duration-300 hover:bg-[#8B5CF6]/5"
+                  >
+                    <div className="p-3 rounded-lg bg-gray-100 dark:bg-white/5 text-gray-500 dark:text-gray-400 group-hover:bg-[#8B5CF6] group-hover:text-white transition-all duration-300 shadow-sm">
+                      <link.icon size={24} strokeWidth={1.5} />
+                    </div>
+                    <span className="font-montserrat text-2xl font-bold uppercase tracking-wider text-gray-900 dark:text-white group-hover:text-[#8B5CF6] transition-colors">
+                      {link.name}
+                    </span>
+                  </motion.a>
+                ))}
               </div>
+                
+              {/* Footer Actions */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.4 }}
+                className="flex items-center justify-between mt-auto pt-8 border-t border-gray-100 dark:border-white/10 w-full max-w-sm mx-auto"
+              >
+                <div className="flex flex-col">
+                  <span className="text-xs text-gray-400 font-poppins mb-1">{t('nav.theme')}</span>
+                  <button
+                    onClick={toggleTheme}
+                    className="flex items-center gap-2 text-sm font-semibold font-montserrat uppercase text-gray-800 dark:text-gray-200"
+                  >
+                    {theme === 'dark' ? (
+                      <>
+                         <Sun size={18} className="text-[#8B5CF6]" /> {t('nav.mode.light')}
+                      </>
+                    ) : (
+                      <>
+                         <Moon size={18} className="text-[#8B5CF6]" /> {t('nav.mode.dark')}
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                <div className="h-8 w-[1px] bg-gray-200 dark:bg-white/10" />
+
+                <div className="flex flex-col items-end">
+                  <span className="text-xs text-gray-400 font-poppins mb-1">{t('nav.language')}</span>
+                  <button
+                    onClick={toggleLanguage}
+                    className="text-sm font-bold font-montserrat uppercase text-gray-800 dark:text-gray-200 flex items-center gap-2"
+                  >
+                    {language === 'fr' ? 'Français' : 'English'}
+                    <span className="text-[#8B5CF6]">▼</span>
+                  </button>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>, document.body
+      )}
     </header>
   );
 }
