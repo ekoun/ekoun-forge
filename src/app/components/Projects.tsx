@@ -89,7 +89,7 @@ export function Projects() {
           <div className="mx-0">
             <Slider {...sliderSettings}>
               {creativeImages.map((img, idx) => (
-                <div key={idx} className="px-5 sm:px-4">
+                <div key={idx} className="px-1 sm:px-4">
                   <a
                     href={img}
                     target="_blank"
