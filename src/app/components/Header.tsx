@@ -93,7 +93,7 @@ export function Header() {
       <div className="container mx-auto px-4 md:px-8 relative flex items-center justify-between">
         {/* Logo */}
         <a href="#" className="flex items-center gap-2 group relative z-[110]">
-          <div className="relative w-8 h-8 md:w-10 md:h-10 overflow-hidden">
+          <div className="relative w-10 h-10 md:w-8 md:h-8 overflow-hidden">
              <img 
                src={logoImg} 
                alt="EKOUN FORGE" 
