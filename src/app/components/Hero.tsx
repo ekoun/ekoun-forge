@@ -71,7 +71,7 @@ export function Hero() {
               variant="primary" 
               size="lg" 
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-              className="w-full md:w-auto md:min-w-[180px] h-[52px] md:h-auto shadow-[0_4px_14px_0_rgba(139,92,246,0.39)] hover:shadow-[0_6px_20px_rgba(139,92,246,0.23)] transition-shadow"
+              className="w-full md:w-auto md:min-w-[200px] h-[52px] md:h-[56px] shadow-[0_4px_14px_0_rgba(139,92,246,0.39)] hover:shadow-[0_6px_20px_rgba(139,92,246,0.23)] transition-shadow"
             >
               {t('hero.cta.projects')} <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -79,7 +79,7 @@ export function Hero() {
               variant="outline" 
               size="lg" 
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="w-full md:w-auto md:min-w-[180px] h-[48px] md:h-auto"
+              className="w-full md:w-auto md:min-w-[200px] h-[48px] md:h-[56px]"
             >
               {t('hero.cta.start')} <Rocket className="ml-2 h-5 w-5" />
             </Button>
