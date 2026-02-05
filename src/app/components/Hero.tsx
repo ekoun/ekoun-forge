@@ -46,20 +46,32 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="flex flex-col items-center max-w-5xl"
+          className="flex flex-col items-center max-w-5xl w-full"
         >
-          <h1 className="font-montserrat font-bold text-[clamp(2rem,6vw,5.5rem)] leading-[1.1] tracking-tight text-black dark:text-white mb-10 uppercase text-center break-words w-full">
-            <span className="block">{t('hero.title.1')}</span>
-            <span className="block text-[#8B5CF6] drop-shadow-[0_0_25px_rgba(139,92,246,0.2)]">{t('hero.title.2')}</span>
-            <span className="block">{t('hero.title.3')}</span>
+          {/* Mobile: 3-line layout, Desktop: original */}
+          <h1 className="font-montserrat font-bold leading-[1.2] md:leading-[1.1] text-black dark:text-white mb-10 uppercase text-center break-words w-full">
+            {/* Mobile Layout */}
+            <span className="block md:hidden text-[clamp(26px,6vw,28px)] tracking-tight">
+              <span className="block text-black dark:text-white">DESIGN STRATÉGIQUE</span>
+              <span className="block text-[#8B5CF6] drop-shadow-[0_0_25px_rgba(139,92,246,0.2)] my-2">AU SERVICE DE LA</span>
+              <span className="block text-black dark:text-white">PERFORMANCE DIGITALE</span>
+            </span>
+
+            {/* Desktop Layout */}
+            <span className="hidden md:block text-[clamp(2rem,6vw,5.5rem)]">
+              <span className="block">{t('hero.title.1')}</span>
+              <span className="block text-[#8B5CF6] drop-shadow-[0_0_25px_rgba(139,92,246,0.2)]">{t('hero.title.2')}</span>
+              <span className="block">{t('hero.title.3')}</span>
+            </span>
           </h1>
           
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mt-4">
+          {/* CTA Buttons */}
+          <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center mt-4 w-full md:w-auto md:mt-4">
             <Button 
               variant="primary" 
               size="lg" 
               onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-              className="shadow-[0_4px_14px_0_rgba(139,92,246,0.39)] hover:shadow-[0_6px_20px_rgba(139,92,246,0.23)] transition-shadow min-w-[180px]"
+              className="w-full md:w-auto md:min-w-[180px] h-[52px] md:h-auto shadow-[0_4px_14px_0_rgba(139,92,246,0.39)] hover:shadow-[0_6px_20px_rgba(139,92,246,0.23)] transition-shadow"
             >
               {t('hero.cta.projects')} <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
@@ -67,7 +79,7 @@ export function Hero() {
               variant="outline" 
               size="lg" 
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="min-w-[180px]"
+              className="w-full md:w-auto md:min-w-[180px] h-[48px] md:h-auto"
             >
               {t('hero.cta.start')} <Rocket className="ml-2 h-5 w-5" />
             </Button>

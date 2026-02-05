@@ -163,3 +163,15 @@
   box-shadow: 0 8px 30px rgba(139,92,246,0.18);
 }
 .projects-close:focus { outline: none; box-shadow: 0 0 0 4px rgba(139,92,246,0.12); }
+
+/* Hero Mobile Optimizations */
+@media (max-width: 767px) {
+  /* Hero section adjustments for mobile */
+  section[id="hero"] h1 span.block {
+    margin: 0;
+  }
+  
+  section[id="hero"] h1 span.block:nth-child(2) {
+    margin: 8px 0;
+  }
+}
